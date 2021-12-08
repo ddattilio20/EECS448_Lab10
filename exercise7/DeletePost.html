@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exercise 7</title>
+    </head>
+    <body>
+
+        <h1>Delete posts</h1>
+        <form action="DeletePost.php" method="post">
+    
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Content</th>
+                    <th>Delete?</th>
+                </tr>
+
+                <?php
+                
+                $conn = new mysqli("mysql.eecs.ku.edu", "d318d032", "zae4eipo", "d318d032");
+
+                $query = "SELECT * FROM posts ORDER BY post_id";
+                if($result = $conn->query($query)){
+                    while($row = $result->fetch_assoc()){
+                        $auth = $row['author_id'];
+                        $msg = $row['content']; 
+                        $id = $row['post_id'];
+
+                        ?>
+                        <tr id='tr_<?= $id ?>'>
+                            <td><?= $msg ?></td>
+                            <td><?= $auth ?></td>
+                            <td><input type="checkbox" name='delete[]' value='<?= $id ?>'</td>
+                        </tr>
+                        <?php
+
+                    }
+                    $result->free();
+                }
+                $conn->close();
+                ?>
+            </table>
+            <br>
+            <input type="submit">
+
+        </form>
+    </body>
+</html>
