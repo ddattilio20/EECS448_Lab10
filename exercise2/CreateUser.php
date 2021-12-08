@@ -23,7 +23,7 @@ if($conn-> query($sql) === TRUE){
   echo ("User Created");
 }
 else {
-  echo "Error: " . $sql . "<br>" > $conn->error;
+   echo "Error: User couldn't be created." ;
 }
 
 $conn->close();
